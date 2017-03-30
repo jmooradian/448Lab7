@@ -42,4 +42,20 @@ public class Matrix
 		}
 		return sub;
 	}
+	
+	public static double[][] inverse(double[][] matrix)
+	{
+		int size = matrix.length;
+		double[][] inverseMatrix = new double [size][size];
+		double det = determinant(size,matrix);
+		for(int i = 0; i < size; i++)
+		{
+			for(int j = 0; j < size; j++)
+			{
+				inverseMatrix[i][j] = Math.pow(-1.0, (double)i+j) * determinant(size-1, subMatrix(j, i, matrix, size)) / det;
+			}
+		}
+		
+		return inverseMatrix;
+	}
 }
