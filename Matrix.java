@@ -3,6 +3,68 @@ import java.math.*;
 
 public class Matrix
 {
+	public static void main(String[] args)
+	{
+		try{
+			String line;
+			
+			FileReader fileReader = new FileReader ("input.txt");
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			FileWriter fileWriter = new FileWriter("output.txt");
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			while((line = bufferedReader.readLine()) != null){
+				if(line.length() == 1)
+				{
+					int size = Integer.parseInt(line);
+					double[][] matrix = new double [size][size];
+					for(int r = 0; r < matrix.length; r++){
+				        String splitLine[] = bufferedReader.readLine().split(" ");
+				        matrix[r] = new double[splitLine.length];
+				        for(int c = 0; c < matrix[r].length; c++){
+				            matrix[r][c] = Integer.parseInt(splitLine[c]);
+				        }
+				    }
+					if(size != 0)
+					{
+						System.out.println("M = ");
+						printMatrix(matrix);
+						System.out.println("det(M) = ");
+						System.out.println(determinant(size,matrix));
+						System.out.println("Minv = ");
+						printMatrix(inverse(matrix));
+					}
+					else
+					{
+						System.out.println("Done!");
+					}
+					
+					/*for(int i = 0; i < size; i++)
+					{
+						for(int j = 0; j < size; j++)
+						{
+							double index = matrix[i][j];
+							int num = (int)index;
+							System.out.print(num);
+							//bufferedWriter.write("hi");
+							//bufferedWriter.write(num);
+							//bufferedWriter.write(" ");
+						}
+						bufferedWriter.newLine();
+						System.out.println();
+					}*/
+					
+					bufferedWriter.write(size);
+				}
+			}
+			bufferedReader.close();
+			bufferedWriter.close();
+		}catch(FileNotFoundException e){
+			System.out.println("Unable to open file input.txt.");
+		}catch(IOException e){
+			System.out.println("Couldn't read input.txt");
+		}
+		
+	}
 	
 	public static void printMatrix(double[][] matrix)
 	{
